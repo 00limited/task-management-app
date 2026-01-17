@@ -2,6 +2,7 @@ package com.taskmanagement.app.controller;
 
 import com.taskmanagement.app.entity.Project;
 import com.taskmanagement.app.service.ProjectService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,13 +35,13 @@ public class ProjectController {
     }
     
     @PostMapping
-    public ResponseEntity<Project> createProject(@RequestBody Project project) {
+    public ResponseEntity<Project> createProject(@Valid @RequestBody Project project) {
         Project created = projectService.createProject(project);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
     
     @PutMapping("/{id}")
-    public ResponseEntity<Project> updateProject(@PathVariable Long id, @RequestBody Project project) {
+    public ResponseEntity<Project> updateProject(@PathVariable Long id, @Valid @RequestBody Project project) {
         try {
             Project updated = projectService.updateProject(id, project);
             return ResponseEntity.ok(updated);
